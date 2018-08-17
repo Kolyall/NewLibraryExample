@@ -1,0 +1,25 @@
+apply plugin: 'maven-publish'
+apply plugin: 'signing'
+
+publishing {
+    publications {
+        toBuildDir(MavenPublication) {
+            groupId publishedGroupId
+            artifactId artifact
+            version libraryVersion
+            artifact("$buildDir/outputs/aar/${libraryName}-release.aar")
+            artifact sourcesJar
+            artifact javadocJar
+        }
+    }
+
+    repositories {
+        maven {
+            // change URLs to point to your repos, e.g. http://my.org/repo
+            def releasesRepoUrl = "$buildDir/repository"
+            url = releasesRepoUrl
+            name = 'MyDir'
+        }
+    }
+
+}
